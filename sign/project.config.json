@@ -10,7 +10,7 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "wx904baa1186e4d68a",
+	"appid": "wx2ffdecc8bcacac8a",
 	"projectname": "sign",
 	"condition": {
 		"search": {

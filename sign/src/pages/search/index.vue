@@ -53,7 +53,7 @@ export default {
     this.search = debounce((val)=>{
       this.$map.search({
         keyword: val,
-        region: '北京',
+        region: '上海',
         success: function (res) {
           console.log(res);
           that.suggestion = res.data;

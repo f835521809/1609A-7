@@ -1,6 +1,34 @@
 <template>
   <div class="wrap">
-       dddd
+    <p>面试信息</p>
+    <ul>
+      <li>
+        <lable for="">※公司名称※</lable>
+        <input type="text" v-model="current.company" placeholder="请输入公司名称">
+      </li>
+       <li>
+        <lable for="">※公司电话※</lable>
+        <input type="number" v-model="current.phone" placeholder="请输入面试联系人电话" maxlength="11">
+      </li>
+       <li>
+        <lable for="">※面试时间※</lable>
+        <picker
+          mode="multiSelector"
+          :range="dateRange"
+          :value="info.date"
+          @change="dateChange"
+          @columnchange="columnChange"
+        ><view class="date">{{dateShow}}</view>
+        </picker>
+      </li>
+       <li>
+        <lable for="">※面试地址※</lable>
+        <input @tap="goSearch" type="text" disabled v-model="current.address.address" placeholder="请选择面试地址">
+      </li>
+    </ul>
+    <p>备注信息</p>
+    <textarea type="text" v-model="current.description" placeholder="随便写些什么:)"/>
+    <button :class="btnEnable?'': 'disable'" @click="submit">确认</button>
   </div>
 </template>
 
@@ -98,15 +126,14 @@ export default {
       // 判断公司名称是否为空
       if (!this.current.company){
         wx.showToast({
-          title: '请输入公司名称', //提示的内容,
-          icon: 'none', //图标,
+          title: '请输入名称', //提示的内容
         });
         return false;
       }
       // 判断手机号是否符合规范
       if (!/^1(3|4|5|7|8)\d{9}$/.test(this.current.phone) || !/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(this.current.phone)){
         wx.showToast({
-          title: '请输入面试联系人的手机或座机', //提示的内容,
+          title: '请输入手机号', //提示的内容,
           icon: 'none', //图标,
         });
         return false;
@@ -114,7 +141,7 @@ export default {
       // 判断公司地址
       if (!this.current.address.address){
         wx.showToast({
-          title: '请选择公司地址', //提示的内容,
+          title: '请选择地址', //提示的内容,
           icon: 'none', //图标,
         });
         return false;
@@ -136,19 +163,21 @@ p{
   font-size: 34rpx;
   padding: 15rpx 0 15rpx 30rpx;
   background: #f6f6f6;
+    font-weight: bold;
 }
 ul{
-  border-top: 1rpx solid #eee;
-  border-bottom: 1rpx solid #eee;
+  border-top: 3rpx solid #eee;
+  border-bottom: 2rpx solid #eee;
   background: #fff;
 }
 li{
   width: 720rpx;
   height: 88rpx;
-  margin-left: 30rpx;
-  border-bottom: 1rpx solid #eee;
+  margin-left: 40rpx;
+  border-bottom: 10rpx solid #eee;
   display: flex;
   align-items: center;
+  font-weight: bold;
   justify-content: space-between;
   lable{
     color: #666;
@@ -158,7 +187,6 @@ li{
   input,picker{
     flex: 1;
     font-size: 30rpx;
-    // background: #eee;
     color: #333;
     height: 88rpx;
     overflow: hidden;
@@ -177,20 +205,19 @@ li:last-child{
 }
 textarea{
   font-size: 30rpx;
-  // background: #eee;
   color: #333;
   width: 690rpx;
   height: 200rpx;
   margin: 30rpx;
   box-sizing: border-box;
   padding: 10rpx;
-  border: 1rpx solid #c0c0c0;
+  border: 3rpx solid #c0c0c0;
   border-radius: 5rpx;
 }
 button{
-  margin-top: 50rpx;
+  margin: 50rpx;
   color: #fff;
-  background: #197DBF;
+  background: #f91;
 }
 button.disable{
   background: #999;
