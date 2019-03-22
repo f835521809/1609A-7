@@ -1,24 +1,16 @@
 <template>
-  <div class="wrap">
-    <header>
-      <div class="avatar">
-        <image src="/static/images/my.png" lazy-load="false"></image>
+  <div  class="wrap">
+      <div class="nav">
+        <img src="../../../static/images/my.png" alt="">
+        <p>188********</p>
       </div>
-      <p>176****6605</p>
-    </header>
-    <ul>
-      <li>
-        <icon type="waiting" size="18px" />
-        <span>
-          我的面试
-        </span>
-        <image src="/static/images/arrow.svg"></image>
-      </li>
-    </ul>
-    <div class="phone" v-if="showPhoneDialog">
-      <p>为了更好的使用我们的服务，我们需要获取你的手机号码</p>
-      <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">允许获取手机号</button>
-    </div>
+      <div class="face">
+        <p @click="mysign"><span><img src="../../../static/images/job.png" alt="">我的面试</span><span>》</span></p>
+      </div>  
+      <div class="phone">
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">允许获取手机号</button>
+        <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">允许获取用户信息</button>
+      </div>
   </div>
 </template>
 
@@ -29,7 +21,7 @@ import {mapState, mapMutations} from 'vuex'
 export default {
   data () {
     return {
-      showPhoneDialog: true
+        showPhoneDialog:false
     }
   },
 
@@ -39,79 +31,60 @@ export default {
     })
   },
 
+
+
   methods: {
-    getPhoneNumber(e){
-      console.log('e...', e);
-    }
+      // getPhoneNumber(e){
+      //     console.log("getNumber..........",e)
+      // },
+      // getUserInfo(e){
+      //     console.log("getUserInfo..........",e)
+      // },
+      mysign(){
+        wx.navigateTo({ url: '/pages/sign/list/main' });
+      }
   },
 
   onShow() {
-    if (!this.info.phone){
-      this.showPhoneDialog = false;
+    console.log(this.info)
+    if(this.info.phone){
+        this.showPhoneDialog=true
     }
-  }
-}
+  },
+} 
 </script>
 
 <style lang="scss" scoped>
-header{
-  background: #F4F6F9;
-  width: 100%;
-  height: 350rpx;
-  box-sizing: border-box;
-  padding: 50rpx 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  .avatar{
-    width: 100rpx;
-    height: 100rpx;
-    background: #fff;
+
+  .phone{
+    // display: none;
+    margin-top: 100rpx;
+    button{
+      width: 80%;
+      background: rgb(30, 255, 0);
+      color:#fff;
+    }
+  }
+  .nav{
+    width: 100%;
+    height: 200px;
     text-align: center;
-    padding: 20rpx;
-    border-radius: 50%;
+    background: blanchedalmond;
+    img{
+      width: 50px;
+      height: 50px;
+      margin: 50px 0;
+    }
   }
-  image{
-    width: 90%;
-    height: 90%;
+  .face img{
+       width:30px;
+      height:30px;
   }
-}
-.phone{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0, .3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  p{
-    width: 60%;
-    background: #fff;
+  .face p{
+    width: 100%;
+    height: 80rpx;
+    line-height: 80rpx;
+    display: flex;
+    justify-content: space-between;
   }
-  button{
-    width: 60%;
-  }
-}
-li{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  padding: 50rpx 40rpx 0 40rpx;
-  span:nth-child(2){
-    flex: 1;
-    margin-left: 40rpx;
-    color: #666;
-    font-size: 36rpx;
-  }
-  image{
-    width: 40rpx;
-    height: 40rpx;
-  }
-}
 </style>
