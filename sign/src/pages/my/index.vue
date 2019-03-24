@@ -1,90 +1,133 @@
 <template>
-  <div  class="wrap">
-      <div class="nav">
-        <img src="../../../static/images/my.png" alt="">
-        <p>188********</p>
-      </div>
-      <div class="face">
-        <p @click="mysign"><span><img src="../../../static/images/job.png" alt="">我的面试</span><span>》</span></p>
-      </div>  
-      <div class="phone">
-        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">允许获取手机号</button>
-        <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">允许获取用户信息</button>
-      </div>
+  <div class="wrap">
+    <header>
+      <image src="/static/images/ren.png" lazy-load="false"></image>
+      <p>176****0325</p>
+    </header>
+    <ul>
+        <li>
+          <div>
+            <span><img src="../../../static/images/money.png" /></span>
+            <span>我的钱包</span>
+          </div>
+          <b>></b>
+        </li>
+        <li>
+          <div>
+            <span><img src="../../../static/images/ka.png" /></span>
+            <span>我的卡券</span>
+          </div>
+          <b>></b>
+        </li>
+        <li @click="goSignList">
+          <div>
+            <span><img src="../../../static/images/lv.png" /></span>
+            <span>我的行程</span>
+          </div>
+          <b>></b>
+        </li>
+    </ul>
+
+    <div class="footer">
+      <p>切换账号</p>
+    </div>
+    <!-- <div class="phone" v-if="showPhoneDialog">
+      <p>为了更好的使用我们的服务，我们需要获取你的手机号码</p>
+      <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">允许获取手机号</button>
+    </div> -->
   </div>
 </template>
 
 <script>
 import {getLocation, getAuth} from '@/utils/index.js'
 import {mapState, mapMutations} from 'vuex'
-
 export default {
   data () {
     return {
-        showPhoneDialog:false
+      showPhoneDialog: true
     }
   },
-
   computed: {
     ...mapState({
       info: state=>state.info
     })
   },
-
-
-
   methods: {
-      // getPhoneNumber(e){
-      //     console.log("getNumber..........",e)
-      // },
-      // getUserInfo(e){
-      //     console.log("getUserInfo..........",e)
-      // },
-      mysign(){
-        wx.navigateTo({ url: '/pages/sign/list/main' });
-      }
-  },
-
-  onShow() {
-    console.log(this.info)
-    if(this.info.phone){
-        this.showPhoneDialog=true
+    getPhoneNumber(e){},
+     goSignList(){
+       wx.navigateTo({ url: '/pages/sign/list/main' });
     }
   },
-} 
+  onShow() {
+    if (!this.info.phone){
+      this.showPhoneDialog = false;
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-
-  .phone{
-    // display: none;
-    margin-top: 100rpx;
-    button{
-      width: 80%;
-      background: rgb(30, 255, 0);
-      color:#fff;
-    }
+header{
+  background: #F4F6F9;
+  width: 100%;
+  height: 400rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  image{
+    width: 200rpx;
+    height: 200rpx;
   }
-  .nav{
-    width: 100%;
-    height: 200px;
-    text-align: center;
-    background: blanchedalmond;
-    img{
-      width: 50px;
-      height: 50px;
-      margin: 50px 0;
-    }
-  }
-  .face img{
-       width:30px;
-      height:30px;
-  }
-  .face p{
-    width: 100%;
-    height: 80rpx;
-    line-height: 80rpx;
+}
+ul {
+   width: 100%;
+   height: 100%;
+   margin-top: 30px;
+   li{
     display: flex;
     justify-content: space-between;
+    height: 100rpx;
+    line-height: 100rpx;  
+    padding:  0 30rpx;
+    span{
+       img {
+        width: 35rpx;
+        height: 35rpx; 
+      }
+    } 
+    span{
+       margin-left: 35rpx;
+    }
+   }
+}
+
+.footer{
+  width: 100%;
+   height: 100rpx;
+   line-height: 100rpx;
+   background: red;
+   position: fixed;
+   bottom:0;
+   text-align: center;
+}
+.phone{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0, .3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p{
+    width: 60%;
+    background: #fff;
   }
+  button{
+    width: 60%;
+  }
+}
 </style>
