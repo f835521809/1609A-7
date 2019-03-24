@@ -34,12 +34,6 @@ export default {
 
 
   methods: {
-      // getPhoneNumber(e){
-      //     console.log("getNumber..........",e)
-      // },
-      // getUserInfo(e){
-      //     console.log("getUserInfo..........",e)
-      // },
       mysign(){
         wx.navigateTo({ url: '/pages/sign/list/main' });
       }

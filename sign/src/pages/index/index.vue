@@ -21,12 +21,6 @@
         <cover-image src="/static/images/ren.png" />
       </cover-view>
     </cover-view>
-    <!-- vuex最简单的demo -->
-    <!-- <div>
-      <button @click="btnClick('+')">+</button>
-      <span>{{state}}</span>
-      <button @click="btnClick('-')">-</button>
-    </div> -->
   </div>
 </template>
 
@@ -72,13 +66,7 @@ export default {
     btnClick(type){
       this.changeNum(type);
     },
-    regionChange(e){
 
-    },
-    // 点击标注物
-    marketTap(e){
-
-    },
     // 重新定位
     goCurrent(){
       getAuth('scope.userLocation', async ()=>{
